@@ -26,5 +26,19 @@ aws ssm start-session --target instance-id
 
 ![Screenshot 2024-12-07 085543](https://github.com/user-attachments/assets/b7d998c9-e8ce-426e-a218-b563f617790f)
 
-### Testing connection from terminal
+### Open a connection forwarding session to a remote port on MySQL server
+
+Note: In this example, I'm using local port 1053, but you can choose a different local port if you prefer.
+
+```console
+aws ssm start-session --target <ssm-managed-instance-id> --document-name AWS-StartPortForwardingSessionToRemoteHost --parameters '{"portNumber":["3306"],"localPortNumber":["1053"],"host":["database-endpoint"]}'
+```
+### Verify that connection forwarding is working
+
+I'm opening a second terminal session to establish my connection to the RDS database. As soon as I do that, a "Connection accepted for Session" message appears in my first terminal.
+You can also try this with SQL workbench by connecting to: 127.0.0.1:1053
+
+![Screenshot 2024-12-07 091101](https://github.com/user-attachments/assets/83bf8039-94e2-42da-b981-acd024adc587)
+
+
 
